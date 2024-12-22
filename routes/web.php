@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\CartController;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,11 +15,19 @@ Route::controller(WebController::class)->group(function () {
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/services', 'services')->name('services');
-    Route::get('/cart', 'cart')->name('cart');
-    Route::get('/productDetail{product}', 'productDetail')->name('productDetail');
+    Route::get(uri: '/productDetail/{product}', action: 'productDetail')->name('productDetail');
+    Route::get('/search', 'search')->name('search');
 
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+});
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

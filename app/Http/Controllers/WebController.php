@@ -9,7 +9,9 @@ class WebController extends Controller
 {
     public function index()
     {
-        return view('web.index');
+        $products = Product::all();
+
+        return view('web.index',compact( 'products'));
     }
 
     public function shop()
@@ -35,16 +37,26 @@ class WebController extends Controller
 
     public function services()
     {
-        return view('web.services');
-    }
+        $products = Product::all();
 
-    public function cart()
-    {
-        return view('web.cart');
-    }
+        return view('web.services',compact( 'products'));    }
+
     
     public function productDetail(Product $product)
     {
+        
         return view('web.productDetail', compact('product'));
     }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        // Search for products by name or description
+        $products = Product::where('name', 'like', '%' . $query . '%')
+                           ->orWhere('description', 'like', '%' . $query . '%')
+                           ->get();
+    
+        return response()->json(['products' => $products]);
+    }
+    
 }
