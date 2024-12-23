@@ -21,7 +21,7 @@
 			@foreach($products as $product)
                 	<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <a class="product-item" href="{{ route('productDetail', $product) }}">
-                        <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid product-thumbnail" alt="{{ $product->name }}">
+                        <img src="{{ asset(path: 'storage/' . $product->image) }}" class="img-fluid product-thumbnail" alt="{{ $product->name }}">
                         <h3 class="product-title">{{ $product->name }}</h3>
                         <strong class="product-price">${{ number_format($product->price, 2) }}</strong>
 

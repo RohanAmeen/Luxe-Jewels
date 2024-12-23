@@ -37,14 +37,25 @@ class CartController extends Controller
     /**
      * View cart items.
      */
-    public function viewCart()
-    {
-        $userId = Auth::id();
+    
 
-        $cartItems = CartItem::with('product')->where('user_id', $userId)->get();
+public function viewCart()
+{
+    $userId = Auth::id();
 
-        return view('web.cart', compact('cartItems'));
-    }
+    $cartItems = CartItem::with('product')->where('user_id', auth()->id())->get();
+
+    // Calculate subtotal
+    $subtotal = $cartItems->sum(function ($item) {
+        return $item->product->price * $item->quantity;
+    });
+
+    return view('web.cart', [
+        'cartItems' => $cartItems,
+        'subtotal' => $subtotal,
+        'total' => $subtotal, // Modify if additional fees or taxes are needed
+    ]);
+}
 
     /**
      * Remove item from cart.
