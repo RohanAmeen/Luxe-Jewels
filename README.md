@@ -1,3 +1,163 @@
+
+# Luxe Jewels
+
+Luxe Jewels is an e-commerce jewelry platform designed to offer a seamless online shopping experience for customers. The platform allows users to browse products, add items to their cart, and make purchases. It also incorporates an API for managing products and implementing user authentication through Laravel Passport.
+
+---
+
+## Project Overview
+
+Luxe Jewels provides a feature-rich online jewelry store with the following:
+
+- **E-commerce functionality:** Users can browse and purchase products.
+- **Authentication:** Implemented using Laravel Passport for secure authentication.
+- **Product API:** A set of RESTful API endpoints to interact with product data.
+
+This project is built using **Laravel**, **Laravel Passport** for API authentication, and includes various features such as product management and user authentication.
+
+---
+
+## Setup Instructions
+
+Follow the steps below to set up the project locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository_url>
+cd LuxeJewels
+```
+
+### 2. Install Dependencies
+
+Ensure you have **Composer** installed. If not, install it from [here](https://getcomposer.org/).
+
+Run the following command to install the required dependencies:
+
+```bash
+composer install
+```
+
+### 3. Set Up Environment File
+
+Create a `.env` file by copying the `.env.example` file:
+
+```bash
+cp .env.example .env
+```
+
+### 4. Generate Application Key
+
+Run the following command to generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+### 5. Set Up Database
+
+Update your `.env` file with the correct database connection settings. Here’s an example:
+
+```ini
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=luxejewels
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 6. Run Migrations
+
+Run the migrations to set up the database tables:
+
+```bash
+php artisan migrate
+```
+
+### 7. Install Passport
+
+Install Laravel Passport for API authentication:
+
+```bash
+composer require laravel/passport
+```
+
+Then, publish Passport’s assets:
+
+```bash
+php artisan vendor:publish --provider="Laravel\Passport\PassportServiceProvider"
+```
+
+Run the migrations for Passport:
+
+```bash
+php artisan migrate
+```
+
+Finally, install Passport and generate the necessary encryption keys:
+
+```bash
+php artisan passport:install
+```
+
+---
+
+## Usage Guide
+
+### Accessing the Application
+
+- Start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+By default, the application will be accessible at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+### API Testing with Postman
+
+1. **Set Up Environment Variables** in Postman:
+   - Create an environment with the base URL of the project: `http://127.0.0.1:8000`.
+   - Define environment variables like `baseUrl` and `token`.
+
+2. **Authenticate User:**
+   - Send a POST request to `/api/login` with your user credentials.
+   - Obtain the authentication token from the response.
+
+3. **Test API Endpoints:**
+   - Use the generated token in the `Authorization` header as `Bearer <token>` to access protected routes like `/api/products`.
+
+4. **Example Request (Get Products):**
+   - Method: `GET`
+   - URL: `{{baseUrl}}/api/products`
+   - Headers: 
+     - Authorization: `Bearer {{token}}`
+
+---
+
+## Contributing
+
+If you'd like to contribute to the project, please fork the repository and submit a pull request. Contributions, bug reports, and suggestions are always welcome!
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+
+
+
+
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
